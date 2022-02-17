@@ -56,6 +56,7 @@ stages:
           - task: KubernetesManifest@0
             inputs:
               action: 'createSecret'
+              kubernetesServiceConnection: 'New Kubernetes service connection'
               namespace: 'default'
               secretType: 'dockerRegistry'
               secretName: '$(acrsecret)'
@@ -85,10 +86,3 @@ stages:
               containers: '$(acrdevurl)/$(imageRepo):$(tag)'
               imagePullSecrets: '$(acrsecret)'
               
-
-- task: qetza.replacetokens.replacetokens-task.replacetokens@3
-  displayName: 'Replace tokens'
-  inputs:
-    targetFiles: |
-      **/*.config
-      **/*.json => outputs/*.json
