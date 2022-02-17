@@ -84,3 +84,11 @@ stages:
                 $(Pipeline.Workspace)/manifests/service.yml
               containers: '$(acrdevurl)/$(imageRepo):$(tag)'
               imagePullSecrets: '$(acrsecret)'
+              
+
+- task: qetza.replacetokens.replacetokens-task.replacetokens@3
+  displayName: 'Replace tokens'
+  inputs:
+    targetFiles: |
+      **/*.config
+      **/*.json => outputs/*.json
